@@ -1,9 +1,12 @@
-PyBossa demo application Flickr Person
+PyBossa application for Project Noah missions
+=============================================
 
-This application has three files:
+You can export a Project Noah mission using their CSV exporter link, copy the
+link and import it directly in your PyBossa server thanks to the CSV importer
+(use the CSV option).
 
-*  createTasks.py: for creating the application in PyBossa, and fill it with some tasks.
-*  template.html: the view for every task and deal with the data of the answers.
+Then, all you have to do is to use the template.html as a template for your
+mission.
 
 Testing the application
 =======================
@@ -17,13 +20,9 @@ Then, you can follow the next steps:
 
 *  Create an account in PyBossa
 *  Copy under your account profile your API-KEY
-*  Run python createTasks.py -u http://crowdcrafting.org -k API-KEY
-*  Open with your browser the Applications section and choose the FlickrPerson app. This will open the presenter for this demo application.
+*  Run python createTasks.py -u http://crowdcrafting.org -k API-KEY -t
+*  Open with your browser the Applications section and choose the Magicicada app. This will open the presenter for this demo application.
 
 Please, check the full documentation here:
 
 http://docs.pybossa.com/en/latest/user/create-application-tutorial.html
-
-The thumbnail has been created using a photo from Sean McGrath (license CC
-BY 2.0). 
-Check the original photo here: http://www.flickr.com/photos/mcgraths/3289448299/
