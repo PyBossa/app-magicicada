@@ -1,0 +1,340 @@
+<! -- Fix for Bootstrap css with Google Maps https://github.com/twitter/bootstrap/issues/1552 -->
+<style type="text/css">
+    .map_canvas label {
+        width: auto;
+        display: inline;
+    }
+    .map_canvas img {
+        max-width: none;
+    }
+
+    .layersDiv label {
+        color: white;
+    }
+</style>
+<div class="row skeleton"> <!-- Start Skeleton Row-->
+    <div class="span12"><!-- Start of Question and Submission DIV (column) -->
+        <div class="row-fluid" id="step1">
+            <div class="span12">
+                <ul class="thumbnails">
+                    <!-- User submitted picture-->
+                    <li class="span6">
+                        <div class="thumbnail">
+                            <h3>Is it a magicicada? Check the example <i class="icon-chevron-right"></i></h3>
+                        <div class="btn-group">
+                            <button class="btn btn-answer" value='Yes'><i class="icon icon-white icon-thumbs-up"></i> Yes</button>
+                            <!-- If the user clicks this button, the saved answer will be value="no"-->
+                            <button class="btn btn-answer" value='No'><i class="icon icon-white icon-thumbs-down"></i> No</button>
+                            <!-- If the user clicks this button, the saved answer will be value="NotKnown"-->
+                            <button class="btn btn-answer" value='NotKnown'><i class="icon icon-white icon-question-sign"></i> I don't know</button>
+                        </div>
+                        <a id="photo-link" href="#">
+                            <img id="photo" src="http://img339.imageshack.us/img339/9017/loadingo.png">
+                        </a>
+                        </div>
+                    </li>
+                    <!-- Example species to compare-->
+                    <li class="span6">
+                        <div class="thumbnail">
+                        <h3>Magicada Example</h3>
+                        <p style="font-size:10px;"><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/"><i class="icon-picture"></i>by Fontaine K, Cooley J, Simon C</a></p>
+                            <img src="http://i.imgur.com/duUI5wt.png" style="padding-top:5px;">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- End row step1-->
+        <div id="step2" class="row-fluid" style="display:none;">
+            <h1>Which type of magicicada do you see in the photo?</h1>
+            <div class="row-fluid">
+                <div class="span6">
+                    <ul class="thumbnails">
+                        <li class="span12">
+                        <div class="thumbnail">
+                            <a id="photo-link2" href="#">
+                                <img id="photo2" src="http://img339.imageshack.us/img339/9017/loadingo.png">
+                            </a>
+                        </div>
+                    </ul>
+                </div>
+                <div class="span6">
+                    <!--<p><i class="icon-calendar"></i> Spotted on <span id="spotted-date">Loading...</span></p>
+                    <p><i class="icon-calendar"></i> Submitted on <span id="submitted-date">Loading...</span></p>
+                    <hr>-->
+                    <!--<p><i class="icon-map-marker"></i> Lat: <span id="lat"></span>, Long: <span id="lon"></span></p>-->
+                    <div id="map" class="img-polaroid" style="padding-bottom:5px;"></div>
+                    <select id="magicicada" class="span5" style="margin-top:11px;">
+                        <option value='septendecim'>Septendecim</option>
+                        <option value='cassini'>Cassini</option>
+                        <option value='septendecula'>Septendecula</option>
+                    </select>
+
+                    <button  class="btn btn-success btn-answer" value="magicicada-type"><i class="icon-save"></i> Save magicicada species</button>
+                </div>
+            </div><!-- end Row image plus map-->
+            <div class="row-fluid">
+                <div class="span12">
+                    <ul class="thumbnails">
+                        <li class="span4">
+                            <div class="thumbnail">
+                            <h3>Septendecim</h3>
+                            <p style="font-size:10px;"><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/"><i class="icon-picture"></i>by Fontaine K, Cooley J, Simon C</a></p>
+
+                                <img style="max-height:248px;" src="http://i.imgur.com/duUI5wt.png">
+                            </div>
+                        </li>
+                        <li class="span4">
+                            <div class="thumbnail">
+                                <h3>Cassini</h3>
+                                <p style="font-size:10px;"><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/"><i class="icon-picture"></i> by Fontaine K, Cooley J, Simon C</a></p>
+                                <img style="max-height:248px;" src="http://i.imgur.com/n6Ze5ir.jpg">
+                            </div>
+                        </li>
+                        <li class="span4">
+                            <div class="thumbnail">
+                                <h3>Septendecula</h3>
+                                <p style="font-size:10px;"><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/"><i class="icon-picture"></i> by Fonatine K, Cooley J, Simon C</a></p>
+                                <img   style="max-height:248px;" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Magicicada_septendecula_male_%28Brood_IX%29_-_journal.pone.0000892.g003C.png/478px-Magicicada_septendecula_male_%28Brood_IX%29_-_journal.pone.0000892.g003C.png">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Feedback items for the user -->
+        <p>You are working now on task: <span id="task-id" class="label label-warning">#</span></p>
+        <p>You have completed: <span id="done" class="label label-info"></span> tasks from
+        <!-- Progress bar for the user -->
+        <span id="total" class="label label-inverse"></span></p>
+        <div class="progress progress-striped">
+            <div id="progress" rel="tooltip" title="#" class="bar" style="width: 0%;"></div>
+        </div>
+        <!-- 
+            This application uses Disqus to allow users to provide some feedback.
+            The next section includes a button that when a user clicks on it will
+            load the comments, if any, for the given task
+        -->
+        <div id="disqus_show_btn" style="margin-top:5px;">
+            <button class="btn btn-primary btn-large btn-disqus" onclick="loadDisqus()"><i class="icon-comments"></i> Show comments</button>
+            <button class="btn btn-large btn-disqus" onclick="loadDisqus()" style="display:none"><i class="icon-comments"></i> Hide comments</button>
+        </div><!-- End of Disqus Button section -->
+        <!-- Disqus thread for the given task -->
+        <div id="disqus_thread" style="margin-top:5px;display:none"></div>
+    </div><!-- End of Question and Submission DIV (column) -->
+    <div class="span6"><!-- Start of Photo DIV (column) -->
+        <hr>
+    </div><!-- End of Photo DIV (columnt) -->
+</div><!-- End of Skeleton Row -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script src="http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false"></script>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    function loadDisqus() {
+    $("#disqus_thread").toggle();
+    $(".btn-disqus").toggle();
+    var disqus_shortname = 'pybossa'; // required: replace example with your forum shortname
+    //var disqus_identifier = taskId;
+    var disqus_developer = 1;
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    }
+
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script>
+function loadUserProgress() {
+    pybossa.userProgress('magicicada').done(function(data){
+        var pct = Math.round((data.done*100)/data.total);
+        $("#progress").css("width", pct.toString() +"%");
+        $("#progress").attr("title", pct.toString() + "% completed!");
+        $("#progress").tooltip({'placement': 'left'}); 
+        $("#total").text(data.total);
+        $("#done").text(data.done);
+    });
+}
+
+// Add Magicicada Marker in the map
+function addMagicicada(task) {
+    task.magicicadaLayer.removeAllFeatures();
+    // Create a LonLat object to load the city marker
+    var lonLat = new OpenLayers.LonLat(parseFloat(task.info['Longitude']),
+                                       parseFloat(task.info['Latitude']))
+        .transform(
+            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+            task.map.getProjectionObject() // to Spherical Mercator Projection
+        );
+    // Set the marker position
+    var point = new OpenLayers.Geometry.Point(lonLat.lon, lonLat.lat);
+    task.magicicadaLayer.addFeatures([new OpenLayers.Feature.Vector(point)]);
+    // Center the map
+    task.map.setCenter(lonLat,16);
+}
+
+pybossa.taskLoaded(function(task, deferred) {
+    if ( !$.isEmptyObject(task) ) {
+        // Set first the map
+        var div_map = $("<div/>", {'id': "map_" + task.id, 'class': 'map_canvas'});
+        if (window.innerWidth <= 360) {
+            width = "297px";
+            height = "200px";
+        }
+
+        if ((window.innerWidth > 360) && (window.innerWidth <= 800)) {
+            width = "342px";
+            height = "200px";
+        }
+        if (window.innerWidth >= 980 ) {
+            width = "450px";
+            height = "250px";
+        }
+        div_map.css("width", width);
+        div_map.css("height", height);
+        div_map.css("display", "none");
+
+        // We need to append the div element asap otherwise OpenLayers will fail
+        $("#map").append(div_map);
+
+        var map = new OpenLayers.Map('map_' + task.id, {
+            controls: [
+                //new OpenLayers.Control.Navigation(),
+                new OpenLayers.Control.PanZoom(),
+                new OpenLayers.Control.LayerSwitcher(),
+                //new OpenLayers.Control.MousePosition({displayProjection: new OpenLayers.Projection("EPSG:4326")}),
+                ]
+        });
+
+        // Layers
+        // Open Street Map (default layer)
+        map.addLayer(new OpenLayers.Layer.OSM("Open Street Map"));
+
+        // Google Maps Physical layer
+        map.addLayer(new OpenLayers.Layer.Google(
+            "Google Physical",
+            {type: google.maps.MapTypeId.TERRAIN}
+        ));
+
+        // Icon for the Magicicada Marker
+        var styleMapMagicicada = new OpenLayers.StyleMap({
+            pointRadius: 15,
+            externalGraphic: 'http://i.imgur.com/4dDVbKN.png'
+        });
+
+        // Layer for placing the magicicada marker
+        var magicicadaLayer = new OpenLayers.Layer.Vector("Magicicada marker", {
+            styleMap: styleMapMagicicada,
+            attribution: 'Marker Icons by <a href="http://mapicons.nicolasmollet.com/">Nicolas Mollet</a>'
+        });
+        map.addLayer(magicicadaLayer);
+        task.magicicadaLayer = magicicadaLayer;
+
+        // Default location to load the map
+        var lonLat = new OpenLayers.LonLat(-0.1279688 ,51.5077286 )
+            .transform(
+                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+            );
+
+
+        task.map = map;
+        addMagicicada(task);
+
+        // load image from Project Noah 
+        var answer = {
+            'pybossa_task_id': task.id,
+            'pybossa_magicicada': 'No',
+            'pybossa_magicicada_species': 'None',
+        }
+        task.answer = $.extend(answer, task.info);
+
+        var img = $('<img />');
+        img.load(function() {
+            // continue as soon as the image is loaded
+            deferred.resolve(task);
+        });
+        img.attr('src', task.info['Primary Image URL']);
+        task.info.image = img;
+    }
+    else {
+        deferred.resolve(task);
+    }
+});
+
+pybossa.presentTask(function(task, deferred) {
+    if ( !$.isEmptyObject(task) ) {
+        var url_spotting = "http://www.projectnoah.org/spottings/";
+        loadUserProgress();
+        $("#step1").show();
+        $("#map_" + task.id).hide();
+        $("#step2").hide();
+        $('#photo-link').html('').append(task.info.image.css("padding-top", "5px"));
+        $("#photo-link").attr("href", url_spotting + task.info['Noah ID']);
+        //$('#photo-link2').html('').append(task.info.image);
+        //$("#photo-link2").attr("href", url_spotting + task.info['Noah ID']);
+        $("#spotted-date").text(moment(task.info['Spotted Date']).format("MMM Do YYYY"));
+        $("#submitted-date").text(moment(task.info['Submitted Date']).format("MMM Do YYYY"));
+        $("#lat").text(parseFloat(task.info['Latitude']).toFixed(2));
+        $("#lon").text(parseFloat(task.info['Longitude']).toFixed(2));
+        $('#task-id').html(task.id);
+        $('.btn-answer').off('click').on('click', function(evt) {
+            var answer = $(evt.target).attr("value");
+            if (typeof answer != 'undefined') {
+                // Step 1: possible actions Yes, No or I don't Know
+                if (answer == 'Yes') {
+                    $('#photo-link2').html('').append(task.info.image.css("padding-top", "0px"));
+                    $("#photo-link2").attr("href", url_spotting + task.info['Noah ID']);
+                    $("#step1").toggle();
+                    $("#map_" + task.id).show();
+                    $("#step2").toggle();
+                    task.answer.pybossa_magicicada = answer;
+                }
+                if ( (answer == 'No') || (answer == 'NotKnown') ) {
+                    task.answer.pybossa_magicicada = answer;
+
+                    $("#map_" + task.id).hide();
+                    pybossa.saveTask(task.id, task.answer).done(function() {
+                        deferred.resolve();
+                    });
+                    $("#loading").fadeIn(500);
+                    if ($("#disqus_thread").is(":visible")) {
+                        $('#disqus_thread').toggle();
+                        $('.btn-disqus').toggle();
+                    }
+                }
+                if (answer == 'magicicada-type') {
+                    task.answer['pybossa_magicicada_species'] = $("select#magicicada").children(":selected").val();
+
+                    $("#step2").toggle();
+                    $("#map_" + task.id).hide();
+                    pybossa.saveTask(task.id, task.answer).done(function() {
+                        deferred.resolve();
+                    });
+                    $("#loading").fadeIn(500);
+                    if ($("#disqus_thread").is(":visible")) {
+                        $('#disqus_thread').toggle();
+                        $('.btn-disqus').toggle();
+                    }
+                }
+            }
+            else {
+                $("#error").show();
+            }
+        });
+        $("#loading").hide();
+    }
+    else {
+        $(".skeleton").hide();
+        $("#loading").hide();
+        $("#finish").fadeIn(500);
+    }
+});
+
+pybossa.run('magicicada');
+</script>

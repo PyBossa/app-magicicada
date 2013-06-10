@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="span12">
+        <div id="modal" class="modal hide fade">
+            <div class="modal-header">
+                <h3>Magicicada tutorial</h3>
+            </div>
+            <div id="0" class="modal-body" style="display:none">
+                <p><strong>Hi!</strong> Welcome to the <strong>tutorial</strong>. We will show you how you can help us to identify Magicicada species!.
+               </p> 
+            </div>
+            <div id="1" class="modal-body" style="display:none">
+                <p>The application is really simple. It loads a photo from a<a href="http://www.projectnoah.org/missions/24654042">Project Noah Mission</a> and asks you this question: <strong>Is it a magicicada?</strong></p>
+                <div class="row-fluid">
+                    <div class="span3">
+                        <img src="http://i.imgur.com/duUI5wt.png" class="img-polaroid"/>
+                    </div>
+                    <div class="span8 offset1">
+                <p>You will have 3 possible answers:
+                <ul>
+                    <li>Yes,</li>
+                    <li>No, and</li>
+                    <li>I don't know</li>
+                </ul>
+                </p>
+                <p>
+                </p>
+                <p>All you have to do is to click in one of the three possible answers and you will be moved to the next step.</p>
+
+                    </div>
+                </div>
+            </div>
+            <div id="2" class="modal-body" style="display:none">
+                <p>The final step will show three types of magicicadas:</p>
+                <div class="row-fluid">
+                    <ul class="thumbnails">
+                        <li class="span4">
+                            <div class="thumbnail">
+                            <h3>Septendecim</h3>
+                            <p style="font-size:10px;"><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/"><i class="icon-picture"></i>by Fontaine K, Cooley J, Simon C</a></p>
+
+                                <img style="max-height:155px;" src="http://i.imgur.com/duUI5wt.png">
+                            </div>
+                        </li>
+                        <li class="span4">
+                            <div class="thumbnail">
+                                <h3>Cassini</h3>
+                                <p style="font-size:10px;"><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/"><i class="icon-picture"></i> by Fontaine K, Cooley J, Simon C</a></p>
+                                <img style="max-height:155px;" src="http://i.imgur.com/n6Ze5ir.jpg">
+                            </div>
+                        </li>
+                        <li class="span4">
+                            <div class="thumbnail">
+                                <h3>Septendecula</h3>
+                                <p style="font-size:10px;"><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/"><i class="icon-picture"></i> by Fonatine K, Cooley J, Simon C</a></p>
+                                <img   style="max-height:155px;" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Magicicada_septendecula_male_%28Brood_IX%29_-_journal.pone.0000892.g003C.png/478px-Magicicada_septendecula_male_%28Brood_IX%29_-_journal.pone.0000892.g003C.png">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                    <p>Select in the drop down menu the species that you think is the right one and click in the save button. Your answer will be saved and a new task will be loaded for you.</p>
+            </div>
+
+            <div class="modal-footer">
+                <a id="prevBtn" href="#" onclick="showStep('prev')" class="btn">Previous</a>
+                <a id="nextBtn" href="#" onclick="showStep('next')" class="btn btn-success">Next</a>
+                <a id="startContrib" href="../magicicada/newtask" class="btn btn-primary" style="display:none"><i class="icon-thumbs-up"></i> Start!</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var step = -1;
+    function showStep(action) {
+        $("#" + step).hide();
+        if (action == 'next') {
+            step = step + 1;
+        }
+        if (action == 'prev') {
+            step = step - 1;
+        }
+        if (step == 0) {
+            $("#prevBtn").hide();
+        }
+        else {
+            $("#prevBtn").show();
+        }
+
+        if (step == 2 ) {
+            $("#nextBtn").hide();
+            $("#startContrib").show();
+        }
+        $("#" + step).show();
+    }
+
+    showStep('next');
+    $("#modal").modal('show');
+</script>
