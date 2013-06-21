@@ -30,7 +30,7 @@ Documentation
 
 We recommend that you read the section: [Build with PyBossa](http://docs.pybossa.com/en/latest/build_with_pybossa.html) and follow the [step by step tutorial](http://docs.pybossa.com/en/latest/user/tutorial.html).
 
-**NOTE**: This application usses the [pybossa-client](https://pypi.python.org/pypi/pybossa-client) in order to simplify the development of the application and its usage. Check the [documentation](http://pythonhosted.org/pybossa-client/).
+**NOTE**: This application uses the [pybossa-client](https://pypi.python.org/pypi/pybossa-client) in order to simplify the development of the application and its usage. Check the [documentation](http://pythonhosted.org/pybossa-client/).
 
 
 LICENSE
@@ -42,5 +42,3 @@ Please, see the COPYING file.
 Acknowledgments
 ===============
 The thumbnail has been created using a [photo](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/) from Kathryn M. Fontaine, John R. Cooley, and Chris Simon from the paper: [Evidence for Paternal Leakage in Hybrid Periodical Cicadas (Hemiptera: Magicicada spp.)](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1963320/) (license Creative Commons Attribution License). 
-
-
